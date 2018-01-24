@@ -49,6 +49,8 @@ public class MyFIRSTJavaOpMode extends OpMode {
         rightClaw = hardwareMap.servo.get("right_claw");
         littleArmThingFeaturingSkeet = hardwareMap.servo.get("little_arm_thing");
 
+
+
         //leftClawClosePosition = leftClaw.get
 
         leftClaw.setPosition(0.5);
@@ -94,19 +96,19 @@ public class MyFIRSTJavaOpMode extends OpMode {
         }
 
         if (gamepad1.dpad_up){
-            shoulder.setPower(0.5);
+            shoulder.setPower(0.35);
         }
         else if (gamepad1.dpad_down){
-            shoulder.setPower(-0.5);
+            shoulder.setPower(-0.35);
         }
         else{
             shoulder.setPower(0);
         }
         if (gamepad1.dpad_left){
-            elbow.setPower(0.5);
+            elbow.setPower(0.25);
         }
         else if (gamepad1.dpad_right){
-            elbow.setPower(-0.5);
+            elbow.setPower(-0.25);
         }
         else{
             elbow.setPower(0);
