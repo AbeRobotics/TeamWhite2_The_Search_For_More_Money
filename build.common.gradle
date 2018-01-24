@@ -71,7 +71,7 @@ android {
     buildTypes {
         release {
             // Disable debugging for release versions so it can be uploaded to Google Play.
-            //debuggable true
+            debuggable true
             ndk {
                 abiFilters "armeabi-v7a"
             }
