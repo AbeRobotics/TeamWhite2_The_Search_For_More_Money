@@ -28,9 +28,9 @@ public class MyFIRSTJavaOpMode extends OpMode {
     private double leftWheelPower, rightWheelPower, shoulderPower, elbowPower, xValue, yValue;
     private boolean rightBumper, leftBumper, buttonA, buttonB, rememberRightBumper, clawOpen;
 
-    private double leftClawClosePosition = 0.49;
+    private double leftClawClosePosition = 0.45;
     private double leftClawOpenPosition = 0.75;
-    private double rightClawClosePosition = 0.5;
+    private double rightClawClosePosition = 0.55;
     private double rightClawOpenPosition = 0.20;
     private double gemArmDownPosition = 1;
     private double gemArmUpPosition = 0.51;
@@ -113,11 +113,13 @@ public class MyFIRSTJavaOpMode extends OpMode {
             shoulder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             shoulderPower = gamepad1.right_trigger * 0.75 * -1;
             shoulder.setPower(shoulderPower);
+            //elbow.setPower(shoulderPower/-5);
         }
         else if (gamepad1.left_trigger > 0.01){
             shoulder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             shoulderPower = gamepad1.left_trigger * 0.75;
             shoulder.setPower(shoulderPower);
+            //elbow.setPower(shoulderPower/-1);
         }
         else{
 //            shoulder.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
