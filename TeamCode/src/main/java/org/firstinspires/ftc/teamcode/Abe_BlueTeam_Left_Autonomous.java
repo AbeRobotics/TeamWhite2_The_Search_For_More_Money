@@ -1,12 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.disnodeteam.dogecv.CameraViewDisplay;
+import com.disnodeteam.dogecv.detectors.*;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
-
+import java.io.IOException;
 import java.util.LinkedList;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.teamcode.OPModeConstants;
 
 
 /**
@@ -14,7 +19,7 @@ import java.util.LinkedList;
  */
 //Forward, turn right, move forward, turn left, deposit glyph
 @Autonomous(name="Blue Team Left", group="Autonomous")
-public class Abe_BlueTeam_Left_Autonomous extends LinearOpMode {
+public class Abe_BlueTeam_Left_Autonomous extends LinearOpMode{
 
     private OPModeConstants opModeConstants = null;
     private ElapsedTime runtime = new ElapsedTime();

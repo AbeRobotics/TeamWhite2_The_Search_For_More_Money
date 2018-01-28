@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-//import com.disnodeteam.dogecv.detectors.JewelDetector;
+import com.disnodeteam.dogecv.detectors.JewelDetector;
 
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 

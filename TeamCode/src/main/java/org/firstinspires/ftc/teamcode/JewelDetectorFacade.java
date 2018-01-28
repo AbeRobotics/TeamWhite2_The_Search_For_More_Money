@@ -1,4 +1,12 @@
 package org.firstinspires.ftc.teamcode;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import com.disnodeteam.dogecv.CameraViewDisplay;
+import com.disnodeteam.dogecv.detectors.*;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import java.io.IOException;
+
 
 public class JewelDetectorFacade
 {
