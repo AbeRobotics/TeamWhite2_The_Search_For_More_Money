@@ -15,9 +15,9 @@ import java.util.Calendar;
  * Created by Alexander Aldridge on 2018-01-27
  * (Actually I just copied Riley's and changed some things.)
  */
-@Autonomous(name="Auto 1.2: Last minute shit", group="Autonomous")
+@Autonomous(name="Auto 1.2: Park da Blue Car Mom!", group="Autonomous")
 //@Disabled
-public class AlexanderAuto extends OpMode{
+public class AutoParkBlue extends OpMode{
     private DcMotor leftWheel;
     private DcMotor rightWheel;
     private DcMotor shoulder;
@@ -65,6 +65,11 @@ public class AlexanderAuto extends OpMode{
 
         emu = hardwareMap.get(BNO055IMU.class, "emu");
 
+        elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        shoulder.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        rightWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
         //Task_JewelOrder jewelOrder = new Task_JewelOrder(hardwareMap);
     }
 
@@ -80,12 +85,12 @@ public class AlexanderAuto extends OpMode{
         }
         time = (cal.getTimeInMillis() - autoStartTime) / 1000;
 
-        if (time <= 2.5){
+        if (time <= 1.5){
             move("forward", 5);
-        } else if (time <= 4){
-            turn("right", 90);
-        } else if (time <= 5.5) {
-            turn("left", 180);
+        } else if (time <= 2.5){
+            turn("left", 90);
+        } else if (time <= 4) {
+            move("forward", 5);
         }
 
 
@@ -98,6 +103,8 @@ public class AlexanderAuto extends OpMode{
     }
     private void turn(String direction, double angle) // right or left
     {
+        leftWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         if (direction.toLowerCase().equals("left"))
         {
             rightWheel.setPower(-1);
@@ -111,7 +118,7 @@ public class AlexanderAuto extends OpMode{
 
         long startTime = cal.getTimeInMillis();
         long currentTime = startTime;
-        long turnTime = Math.round((625 * (angle/90.0)));
+        long turnTime = Math.round((650 * (angle/90.0)));
 
         while (currentTime < startTime + turnTime) {
             cal = Calendar.getInstance();
@@ -119,6 +126,8 @@ public class AlexanderAuto extends OpMode{
         }
         rightWheel.setPower(0);
         leftWheel.setPower(0);
+        leftWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        rightWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
     }
     private void move(String direction, int distance) // forward or backward, distance in cm
     {

@@ -15,9 +15,9 @@ import java.util.Calendar;
  * Created by Alexander Aldridge on 2018-01-27
  * (Actually I just copied Riley's and changed some things.)
  */
-@Autonomous(name="Auto 1.2: Last minute shit", group="Autonomous")
+@Autonomous(name="Auto 1.2: Don't Move Blue Poppy", group="Autonomous")
 //@Disabled
-public class AlexanderAuto extends OpMode{
+public class AutoDontMoveBlue extends OpMode{
     private DcMotor leftWheel;
     private DcMotor rightWheel;
     private DcMotor shoulder;
@@ -79,14 +79,6 @@ public class AlexanderAuto extends OpMode{
             gemArm.setPosition(gemArmUpPosition);
         }
         time = (cal.getTimeInMillis() - autoStartTime) / 1000;
-
-        if (time <= 2.5){
-            move("forward", 5);
-        } else if (time <= 4){
-            turn("right", 90);
-        } else if (time <= 5.5) {
-            turn("left", 180);
-        }
 
 
         try{
