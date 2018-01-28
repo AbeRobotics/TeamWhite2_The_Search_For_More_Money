@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
@@ -22,7 +21,7 @@ public class MyFIRSTJavaOpMode extends OpMode {
 
     Servo leftClaw;
     Servo rightClaw;
-    Servo littleArmThingFeaturingSkeet;
+    Servo gemArm;
     //DcMotor liftMotor;
 
     double leftWheelPower;
@@ -33,9 +32,10 @@ public class MyFIRSTJavaOpMode extends OpMode {
     double leftClawOpenPosition = 0.75;
     double rightClawClosePosition = 0.5;
     double rightClawOpenPosition = 0.25;
-    double littleArmFeaturingSkeetDownPosition = 1;
-    double littleArmFeaturingSkeetUpPosition = 0.51;
+    double gemArmDownPosition = 1;
+    double gemArmUpPosition = 0.51;
     boolean skeetDown = false;
+    int shoulderPosition;
     int aTicks = 0;     //counts number of ticks the a button has been held down to prevent the littleArmThingFeaturingSkeet from shaking
     @Override
     public void init()
@@ -47,15 +47,18 @@ public class MyFIRSTJavaOpMode extends OpMode {
 
         leftClaw = hardwareMap.servo.get("left_claw");
         rightClaw = hardwareMap.servo.get("right_claw");
-        littleArmThingFeaturingSkeet = hardwareMap.servo.get("little_arm_thing");
+        gemArm = hardwareMap.servo.get("little_arm_thing");
+
+        elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        shoulder.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
 
         //leftClawClosePosition = leftClaw.get
 
-        leftClaw.setPosition(0.5);
-        rightClaw.setPosition(0.5);
-        littleArmThingFeaturingSkeet.setPosition(littleArmFeaturingSkeetUpPosition);
+        //leftClaw.setPosition(0.5);
+        //rightClaw.setPosition(0.5);
+        //gemArm.setPosition(gemArmUpPosition);
 
     }
 
@@ -82,11 +85,11 @@ public class MyFIRSTJavaOpMode extends OpMode {
             if (aTicks < 11) {
                 if (skeetDown) {
                     skeetDown = false;
-                    littleArmThingFeaturingSkeet.setPosition(littleArmFeaturingSkeetUpPosition);
+                    gemArm.setPosition(gemArmUpPosition);
                 }
                 else {
                     skeetDown = true;
-                    littleArmThingFeaturingSkeet.setPosition(littleArmFeaturingSkeetDownPosition);
+                    gemArm.setPosition(gemArmDownPosition);
                 }
                 aTicks++;
             }
@@ -95,20 +98,28 @@ public class MyFIRSTJavaOpMode extends OpMode {
             aTicks = 0;
         }
 
-        if (gamepad1.dpad_up){
-            shoulder.setPower(0.35);
+        if (gamepad1.right_trigger > 0.01){
+            shoulder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            shoulderPower = gamepad1.right_trigger * 0.75 * -1;
+            shoulder.setPower(shoulderPower);
         }
-        else if (gamepad1.dpad_down){
-            shoulder.setPower(-0.35);
+        else if (gamepad1.left_trigger > 0.01){
+            shoulder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            shoulderPower = gamepad1.left_trigger * 0.75;
+            shoulder.setPower(shoulderPower);
         }
         else{
+//            shoulder.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            shoulderPosition = shoulder.getCurrentPosition();
+//            shoulder.setTargetPosition(shoulderPosition);
+//            shoulder.setPower(-0.5);
             shoulder.setPower(0);
         }
         if (gamepad1.dpad_left){
-            elbow.setPower(0.25);
+            elbow.setPower(-0.25);
         }
         else if (gamepad1.dpad_right){
-            elbow.setPower(-0.25);
+            elbow.setPower(0.25);
         }
         else{
             elbow.setPower(0);
