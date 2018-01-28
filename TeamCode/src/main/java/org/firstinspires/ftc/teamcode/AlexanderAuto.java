@@ -65,7 +65,7 @@ public class AlexanderAuto extends OpMode{
 
         emu = hardwareMap.get(BNO055IMU.class, "emu");
 
-        Task_JewelOrder jewelOrder = new Task_JewelOrder(hardwareMap);
+        //Task_JewelOrder jewelOrder = new Task_JewelOrder(hardwareMap);
     }
 
     @Override

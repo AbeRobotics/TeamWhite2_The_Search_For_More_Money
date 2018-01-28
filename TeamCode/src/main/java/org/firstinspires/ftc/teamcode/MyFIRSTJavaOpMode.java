@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * Created by 500260501 on 13/11/2017.
- * Alexander Aldridge promptly attempted to improve it;
+ * Created by 500260501 on 13/11/2017
+ * Alexander Aldridge promptly attempted to improve it
  * Riley James then attempted to further improve it
  * Ibrahim Sultan was there for the heck of it!
  */
@@ -25,6 +25,8 @@ public class MyFIRSTJavaOpMode extends OpMode {
     //DcMotor liftMotor;
 
     private double leftWheelPower, rightWheelPower, shoulderPower, elbowPower;
+    private boolean rightBumper, leftBumper, buttonA, buttonB, rememberButtonB, clawOpen;
+
     private double leftClawClosePosition = 0.49;
     private double leftClawOpenPosition = 0.75;
     private double rightClawClosePosition = 0.5;
@@ -49,28 +51,42 @@ public class MyFIRSTJavaOpMode extends OpMode {
         elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         shoulder.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        rememberButtonB = false;
+        clawOpen = false;
+        buttonB = false;
+
     }
 
     @Override
     public void loop()
     {
+        rightBumper = gamepad1.right_bumper;
+        leftBumper = gamepad1.left_bumper;
+        buttonA = gamepad1.a;
+        buttonB = gamepad1.b;
+
+
         leftWheelPower = -gamepad1.left_stick_y;
         rightWheelPower = gamepad1.right_stick_y;
 
         leftWheel.setPower(leftWheelPower);
         rightWheel.setPower(rightWheelPower);
 
-        if (gamepad1.left_bumper){
+        if (buttonB && !rememberButtonB){
+            clawOpen = !clawOpen;
+        }
+
+        if (clawOpen == false){
             leftClaw.setPosition(leftClawClosePosition);
             rightClaw.setPosition(rightClawClosePosition);
         }
 
-        if (gamepad1.right_bumper){
+        if (clawOpen){
             leftClaw.setPosition(leftClawOpenPosition);
             rightClaw.setPosition(rightClawOpenPosition);
         }
 
-        if (gamepad1.a){
+        if (buttonA){
             if (aTicks < 11) {
                 if (skeetDown) {
                     skeetDown = false;
@@ -113,5 +129,8 @@ public class MyFIRSTJavaOpMode extends OpMode {
         else{
             elbow.setPower(0);
         }
+
+        rememberButtonB = buttonB;
+
     }
 }
