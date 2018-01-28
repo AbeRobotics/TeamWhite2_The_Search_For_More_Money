@@ -14,29 +14,26 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp(name="OpMode 2.1: The Journey for more Money", group="Teleop")
 //@Disabled
 public class MyFIRSTJavaOpMode extends OpMode {
-    DcMotor leftWheel;
-    DcMotor rightWheel;
-    DcMotor shoulder;
-    DcMotor elbow;
+    private DcMotor leftWheel;
+    private DcMotor rightWheel;
+    private DcMotor shoulder;
+    private DcMotor elbow;
 
-    Servo leftClaw;
-    Servo rightClaw;
-    Servo gemArm;
+    private Servo leftClaw;
+    private Servo rightClaw;
+    private Servo gemArm;
     //DcMotor liftMotor;
 
-    double leftWheelPower;
-    double rightWheelPower;
-    double shoulderPower;
-    double elbowPower;
-    double leftClawClosePosition = 0.49;
-    double leftClawOpenPosition = 0.75;
-    double rightClawClosePosition = 0.5;
-    double rightClawOpenPosition = 0.25;
-    double gemArmDownPosition = 1;
-    double gemArmUpPosition = 0.51;
-    boolean skeetDown = false;
-    int shoulderPosition;
-    int aTicks = 0;     //counts number of ticks the a button has been held down to prevent the littleArmThingFeaturingSkeet from shaking
+    private double leftWheelPower, rightWheelPower, shoulderPower, elbowPower;
+    private double leftClawClosePosition = 0.49;
+    private double leftClawOpenPosition = 0.75;
+    private double rightClawClosePosition = 0.5;
+    private double rightClawOpenPosition = 0.25;
+    private double gemArmDownPosition = 1;
+    private double gemArmUpPosition = 0.51;
+    private boolean skeetDown = false;
+    private int shoulderPosition;
+    private int aTicks = 0;     //counts number of ticks the a button has been held down to prevent the littleArmThingFeaturingSkeet from shaking
     @Override
     public void init()
     {
@@ -51,14 +48,6 @@ public class MyFIRSTJavaOpMode extends OpMode {
 
         elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         shoulder.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
-
-        //leftClawClosePosition = leftClaw.get
-
-        //leftClaw.setPosition(0.5);
-        //rightClaw.setPosition(0.5);
-        //gemArm.setPosition(gemArmUpPosition);
 
     }
 
