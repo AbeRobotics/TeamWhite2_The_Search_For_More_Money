@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Range;
 
 /**
  * Created by 500260501 on 13/11/2017
@@ -24,8 +25,8 @@ public class MyFIRSTJavaOpMode extends OpMode {
     private Servo gemArm;
     //DcMotor liftMotor;
 
-    private double leftWheelPower, rightWheelPower, shoulderPower, elbowPower;
-    private boolean rightBumper, leftBumper, buttonA, buttonB, rememberButtonB, clawOpen;
+    private double leftWheelPower, rightWheelPower, shoulderPower, elbowPower, xValue, yValue;
+    private boolean rightBumper, leftBumper, buttonA, buttonB, rememberRightBumper, clawOpen;
 
     private double leftClawClosePosition = 0.49;
     private double leftClawOpenPosition = 0.75;
@@ -51,9 +52,9 @@ public class MyFIRSTJavaOpMode extends OpMode {
         elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         shoulder.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        rememberButtonB = false;
+        rememberRightBumper = false;
         clawOpen = false;
-        buttonB = false;
+        rightBumper = false;
 
     }
 
@@ -66,17 +67,20 @@ public class MyFIRSTJavaOpMode extends OpMode {
         buttonB = gamepad1.b;
 
 
-        leftWheelPower = -gamepad1.left_stick_y;
-        rightWheelPower = gamepad1.right_stick_y;
+        yValue = gamepad1.right_stick_y;
+        xValue = gamepad1.left_stick_x;
 
-        leftWheel.setPower(leftWheelPower);
-        rightWheel.setPower(rightWheelPower);
+        leftWheelPower =  xValue * 1.5 - yValue; //Turning Speed = 1.5
+        rightWheelPower = xValue * 1.5 + yValue;
 
-        if (buttonB && !rememberButtonB){
+        leftWheel.setPower(Range.clip(leftWheelPower, -1.0, 1.0));
+        rightWheel.setPower(Range.clip(rightWheelPower, -1.0, 1.0));
+
+        if (rightBumper && !rememberRightBumper){
             clawOpen = !clawOpen;
         }
 
-        if (clawOpen == false){
+        if (!clawOpen){
             leftClaw.setPosition(leftClawClosePosition);
             rightClaw.setPosition(rightClawClosePosition);
         }
@@ -130,7 +134,7 @@ public class MyFIRSTJavaOpMode extends OpMode {
             elbow.setPower(0);
         }
 
-        rememberButtonB = buttonB;
+        rememberRightBumper = rightBumper;
 
     }
 }
