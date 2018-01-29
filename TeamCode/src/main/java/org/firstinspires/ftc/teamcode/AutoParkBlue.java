@@ -89,7 +89,20 @@ public class AutoParkBlue extends OpMode{
             move("forward", 5);
         } else if (time <= 2.5){
             turn("left", 90);
+
+            shoulder.setPower(-0.2);
+            elbow.setPower(-0.1);
+
         } else if (time <= 4) {
+            move("forward", 5);
+        } else if (time <= 6){
+            leftClaw.setPosition(leftClawOpenPosition);
+            rightClaw.setPosition(rightClawClosePosition);
+            shoulder.setPower(0);
+            elbow.setPower(0);
+        } else if (time <= 7) {
+            move("backward", 5);
+        } else if (time <= 8) {
             move("forward", 5);
         }
 
