@@ -28,10 +28,10 @@ public class MyFIRSTJavaOpMode extends OpMode {
     private double leftWheelPower, rightWheelPower, shoulderPower, elbowPower, xValue, yValue;
     private boolean rightBumper, leftBumper, buttonA, buttonB, rememberRightBumper, clawOpen;
 
-    private double leftClawClosePosition = 0.49;
+    private double leftClawClosePosition = 0.45;
     private double leftClawOpenPosition = 0.75;
-    private double rightClawClosePosition = 0.5;
-    private double rightClawOpenPosition = 0.25;
+    private double rightClawClosePosition = 0.55;
+    private double rightClawOpenPosition = 0.20;
     private double gemArmDownPosition = 1;
     private double gemArmUpPosition = 0.51;
     private boolean skeetDown = false;
@@ -49,6 +49,8 @@ public class MyFIRSTJavaOpMode extends OpMode {
         rightClaw = hardwareMap.servo.get("right_claw");
         gemArm = hardwareMap.servo.get("little_arm_thing");
 
+        rightWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         elbow.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         shoulder.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -70,8 +72,8 @@ public class MyFIRSTJavaOpMode extends OpMode {
         yValue = gamepad1.right_stick_y;
         xValue = gamepad1.left_stick_x;
 
-        leftWheelPower =  xValue * 1.5 - yValue; //Turning Speed = 1.5
-        rightWheelPower = xValue * 1.5 + yValue;
+        leftWheelPower =  xValue * 0.8 - yValue; //Turning Speed = 1.1
+        rightWheelPower = xValue * 0.8 + yValue;
 
         leftWheel.setPower(Range.clip(leftWheelPower, -1.0, 1.0));
         rightWheel.setPower(Range.clip(rightWheelPower, -1.0, 1.0));
@@ -111,11 +113,13 @@ public class MyFIRSTJavaOpMode extends OpMode {
             shoulder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             shoulderPower = gamepad1.right_trigger * 0.75 * -1;
             shoulder.setPower(shoulderPower);
+            //elbow.setPower(shoulderPower/-5);
         }
         else if (gamepad1.left_trigger > 0.01){
             shoulder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             shoulderPower = gamepad1.left_trigger * 0.75;
             shoulder.setPower(shoulderPower);
+            //elbow.setPower(shoulderPower/-1);
         }
         else{
 //            shoulder.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

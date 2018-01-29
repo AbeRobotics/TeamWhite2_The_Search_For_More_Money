@@ -15,9 +15,9 @@ import java.util.Calendar;
  * Created by Alexander Aldridge on 2018-01-27
  * (Actually I just copied Riley's and changed some things.)
  */
-@Autonomous(name="Auto 1.2: Last minute shit", group="Autonomous")
+@Autonomous(name="Auto 1.2: Don't Move Red Poppy", group="Autonomous")
 //@Disabled
-public class AlexanderAuto extends OpMode{
+public class AutoDontMoveRed extends OpMode{
     private DcMotor leftWheel;
     private DcMotor rightWheel;
     private DcMotor shoulder;
@@ -34,9 +34,9 @@ public class AlexanderAuto extends OpMode{
     private Calendar cal;
 
     private long time, gameStartTime, autoStartTime;
-    private double leftClawClosePosition = 0.45;
+    private double leftClawClosePosition = 0.35;
     private double leftClawOpenPosition = 0.75;
-    private double rightClawClosePosition = 0.5;
+    private double rightClawClosePosition = 0.6;
     private double rightClawOpenPosition = 0.25;
     private double gemArmDownPosition = 1;
     private double gemArmUpPosition = 0.55;
@@ -80,14 +80,6 @@ public class AlexanderAuto extends OpMode{
         }
         time = (cal.getTimeInMillis() - autoStartTime) / 1000;
 
-        if (time <= 2.5){
-            move("forward", 5);
-        } else if (time <= 4){
-            turn("right", 90);
-        } else if (time <= 5.5) {
-            turn("left", 180);
-        }
-
 
         try{
             Thread.sleep(1000);
@@ -111,7 +103,7 @@ public class AlexanderAuto extends OpMode{
 
         long startTime = cal.getTimeInMillis();
         long currentTime = startTime;
-        long turnTime = Math.round((625 * (angle/90.0)));
+        long turnTime = Math.round((700 * (angle/90.0)));
 
         while (currentTime < startTime + turnTime) {
             cal = Calendar.getInstance();
